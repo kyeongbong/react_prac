@@ -1,13 +1,15 @@
 import React, {useState} from "react";
 // import styled from "styled-components";
-import { Link } from "react-router-dom";
-import Detail from "./Detail";
+import { useNavigate } from "react-router-dom";
+// import Detail from "./Detail";
 
-export default function Header() {
+export default function MainHeader() {
 
-    useState('');
+    
 
     let [ 요일 , 요일변경 ] = useState(['월', '화', '수', '목', '금', '토', '일'])
+
+    const navigate = useNavigate();
 
     const week_rates = 요일.map((w, idx) => {
         return {
@@ -68,6 +70,7 @@ export default function Header() {
 
             
         {week_rates.map((w, idx) =>{
+            
             return (
                 <div style={{display : "flex", marginLeft : "30px"}}>
                         <p style = {weeks}>{ w.day }</p>
@@ -91,8 +94,11 @@ export default function Header() {
                                 ></div>
                                 );
                                 })}
-                                <Link to = "/Detail"> <div style = {triangle}></div> </Link>
-
+                                <div style = {triangle} onClick = {
+                                    () => {navigate('/Detail', { 날짜들 : w.day});}
+                                    
+                                } id = "dayday"> </div>
+                                
                             </div>  
                         </div>                            
                     </div>

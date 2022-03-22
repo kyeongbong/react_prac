@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import MainHeader from "./MainHeader"
 
-
 export default function Detail() {
 
+    // const { 날짜들 } = route.params;
+    // console.log(날짜들)
+
+    const navigate = useNavigate();
+
     const [rate, setRate] = useState(0);
-    
+
+    let [ 요일 , 요일변경 ] = useState(['월', '화', '수', '목', '금', '토', '일'])
 
     return (
         <div style={{
@@ -20,14 +25,13 @@ export default function Detail() {
             <h3 style={{ textAlign: "center" }}>
             <span
             style={{
-                color: "#fff",
+                color: "purple",
                 fontWeight: "900",
-                background: "orange",
                 padding: "0.2rem",
                 borderRadius: "5px",
             }}
             >
-            요일
+            { MainHeader.dayday }요일
             </span>{" "}
             평점 남기기
         </h3>
@@ -49,12 +53,12 @@ export default function Detail() {
                     backgroundColor: rate < idx + 1 ? "#ddd" : "#ffeb3b",
                     }}
                 >
-                    😡
+                    
                 </div>
                 );
             })}
             </div>
-            <Link to ="/"><button style={{
+            <button style={{
             width: "80%",
             backgroundColor: "#eee",
             border: "none",
@@ -64,7 +68,11 @@ export default function Detail() {
             margin: '15px auto',
             display:'block',
             
-        }}>어림없어 돌아가</button></Link>
+        }}
+        onClick = {
+            () => { navigate('/'); }
+        }
+        >등록하기</button>
         </div>
     )
 }
