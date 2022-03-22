@@ -1,18 +1,47 @@
-import Days from "./Days";
+import React, {useState} from "react";
+// import styled from "styled-components";
+import { Link } from "react-router-dom";
+import Detail from "./Detail";
 
 export default function Header() {
 
-    let onedays = ['월', '화', '수', '목', '금', '토', '일']
+    useState('');
 
-    let today = new Date();
+    let [ 요일 , 요일변경 ] = useState(['월', '화', '수', '목', '금', '토', '일'])
 
-    let day = today.getDay();
-    console.log(day)
+    const week_rates = 요일.map((w, idx) => {
+        return {
+        day: w,
+        rate:
+            Math.floor(Math.random() * (Math.floor(5) - Math.ceil(1) + 1)) +
+            Math.ceil(1),
+        };
+    });
+    console.log(week_rates)
 
     let weeks = {
         float : 'left', 
         fontWeight: 'bold', 
         margin : '10px', 
+    };
+
+    let triangle = {
+        width: '0px', 
+        height : '0px', 
+        borderLeft : '25px solid purple', 
+        borderTop: '15px solid transparent', 
+        borderBottom: '15px solid transparent', 
+        float : 'left', 
+        margin : '5px'
+    };
+
+    let weekBox = {
+        width : '250px',
+        height : '40px',
+        display : 'flex',
+        justifyContent : 'center',
+        marginBottom : '10px',
+        float : 'left'
     };
     
     return (
@@ -22,8 +51,6 @@ export default function Header() {
             margin: "20px auto",
             border: "1px solid gainsboro",
             borderRadius: "10px",
-            
-
         }}>
             <div>
                 <p style = {{
@@ -39,17 +66,41 @@ export default function Header() {
             
             
 
-            {
-                onedays.map(function(a){
-                    return (
-                        <div style={{display : "flex", marginLeft : "30px"}}>
-                            <p style = {weeks}>{ a }</p>
-                            <Days></Days>
-                        </div>
-                        
-                    )
-                })
-            }
+            
+        {week_rates.map((w, idx) =>{
+            return (
+                <div style={{display : "flex", marginLeft : "30px"}}>
+                        <p style = {weeks}>{ w.day }</p>
+                    <div>
+                        <div style={weekBox}>
+                            <div>
+                            
+                                {Array.from({ length: 5 }, (item, idx) => {
+                                return (
+                                <div
+                                    key={idx}
+                                    style={{
+                                        width: "30px",
+                                        height: "30px",
+                                        borderRadius: "30px",
+                                        margin: "5px",
+                                        float : 'left',
+                                        textAlign : 'center',
+                                    backgroundColor: w.rate < idx ? "#ddd" : "#ffeb3b",
+                                    }}
+                                ></div>
+                                );
+                                })}
+                                <Link to = "/Detail"> <div style = {triangle}></div> </Link>
+
+                            </div>  
+                        </div>                            
+                    </div>
+                </div>
+            
+            )
+        })
+    }
             
         </div>
     )
