@@ -5,13 +5,13 @@ import { BrowserRouter, Routes, Route} from 'react-router-dom';
 
 const App = () => {
 
-  
+
 
   return (
     <BrowserRouter>
       <Routes>
         <Route exact path='/' element={<MainHeader/>}/>
-        <Route path='/Detail' element={<Detail/>}/> 
+        <Route path='/Detail/:week_days' exact element={<Detail/>}/> 
       </Routes>
     </BrowserRouter>
   )

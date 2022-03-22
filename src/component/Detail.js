@@ -1,17 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import MainHeader from "./MainHeader"
 
+
 export default function Detail() {
 
-    // const { 날짜들 } = route.params;
-    // console.log(날짜들)
+    const Params = useParams();
 
     const navigate = useNavigate();
 
     const [rate, setRate] = useState(0);
 
-    let [ 요일 , 요일변경 ] = useState(['월', '화', '수', '목', '금', '토', '일'])
+    console.log(Params.week_days)
 
     return (
         <div style={{
@@ -31,7 +31,7 @@ export default function Detail() {
                 borderRadius: "5px",
             }}
             >
-            { MainHeader.dayday }요일
+            { Params.week_days }요일
             </span>{" "}
             평점 남기기
         </h3>

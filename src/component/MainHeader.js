@@ -7,11 +7,38 @@ export default function MainHeader() {
 
     
 
-    let [ 요일 , 요일변경 ] = useState(['월', '화', '수', '목', '금', '토', '일'])
+    const 요일 = {
+        0 : "일",
+        1 : "월",
+        2 : "화",
+        3 : "수",
+        4 : "목",
+        5 : "금",
+        6 : "토",
+    };
+
+        const week = Object.keys(요일).map((_d, idx) => 요일[_d])
+
+        console.log(week)
+
+        const week_days = Object.keys(요일).map((_d, idx) => {
+
+            let today = new Date().getDay();
+
+            let d =
+            today + parseInt(_d) > 6
+                ? today + parseInt(_d) - 7
+                : today + parseInt(_d);
+
+            return 요일[d];
+        });
+
+        console.log(week_days)
+
 
     const navigate = useNavigate();
 
-    const week_rates = 요일.map((w, idx) => {
+    const week_rates = week_days.map((w, idx) => {
         return {
         day: w,
         rate:
@@ -19,7 +46,6 @@ export default function MainHeader() {
             Math.ceil(1),
         };
     });
-    console.log(week_rates)
 
     let weeks = {
         float : 'left', 
@@ -95,9 +121,7 @@ export default function MainHeader() {
                                 );
                                 })}
                                 <div style = {triangle} onClick = {
-                                    () => {navigate('/Detail', { 날짜들 : w.day});}
-                                    
-                                } id = "dayday"> </div>
+                                    () => {navigate( `/Detail/${w.day}` )}}> </div>
                                 
                             </div>  
                         </div>                            
